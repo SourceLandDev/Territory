@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="LiteDB" Version="5.0.15" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Using Include="LiteDB" />
+        <Using Include="LiteDB.Engine" />
+        <Using Include="LiteLoader" />
+        <Using Include="LiteLoader.Event" />
+        <Using Include="LiteLoader.Form" />
+        <Using Include="LiteLoader.Hook" />
+        <Using Include="LiteLoader.NET" />
+        <Using Include="LiteLoader.RemoteCall" />
+        <Using Include="MC" />
+        <Using Include="System.Text.Json" />
+        <Using Include="System.Text.Json.JsonSerializer">
+          <Alias>JsonSerializer</Alias>
+        </Using>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Reference Include="LiteLoader.NET">
+            <HintPath>..\SDK\refs\LiteLoader\LiteLoader.NET.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+
+</Project>
