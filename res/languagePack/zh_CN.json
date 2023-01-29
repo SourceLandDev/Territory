@@ -1,0 +1,5 @@
+{
+    "territory.command.description": "领地系统。",
+    "territory.event.nopermission": "你没有在%land_name%里%action_type%的权限",
+    "territory.event.player.useitemon": "使用物品点击方块"
+}

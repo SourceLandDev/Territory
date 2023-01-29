@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
-using Territory.Funcs;
-using Territory.Lang;
+using Territory.Functions;
 using Territory.Type;
 using Territory.Utils;
 
@@ -17,7 +16,7 @@ public class Main : IPluginInitializer
         ["WARN"] = "You edited it, you FREE it. DO NOT BE EVAL!"   // AGPL 3.0
     };
     public System.Version Version => Assembly.GetExecutingAssembly().GetName().Version;
-    internal static Dictionary<string, LangData> LangData;
+    internal static Dictionary<string, Dictionary<string, string>> LangData;
     internal static LiteDatabase DataBase;
     internal static Config Config;
     public void OnInitialize()
@@ -28,11 +27,11 @@ public class Main : IPluginInitializer
         DataBase = new(Path.Combine(path, "data.db"));
         Config = JsonSerializer.Deserialize<Config>(Helper.CheckFile(Path.Combine(path, "config.json"), JsonSerializer.Serialize(new Config())));
 
-        DirectoryInfo langFileDir = Helper.CheckDir(Path.Combine(path, "lang"));
+        DirectoryInfo langFileDir = Helper.CheckDir(Path.Combine(path, "languagePack"));
         LangData = new();
         foreach (FileInfo file in langFileDir.GetFiles("*.json"))
         {
-            LangData[file.Name] = JsonSerializer.Deserialize<LangData>(Helper.CheckFile(file.FullName, JsonSerializer.Serialize(new LangData())));
+            LangData[file.Name] = JsonSerializer.Deserialize<Dictionary<string, string>>(Helper.CheckFile(file.FullName, JsonSerializer.Serialize(new Dictionary<string, string>())));
         }
 
         EventSystem.SetupPlayer();
@@ -41,7 +40,7 @@ public class Main : IPluginInitializer
 
         EventSystem.SetupEntity();
 
-        Funcs.Command.Setup();
+        Functions.Command.Setup();
 
         Exports.Setup();
     }

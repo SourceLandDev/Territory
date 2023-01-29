@@ -1,4 +1,6 @@
-﻿namespace Territory.Utils;
+﻿using System.Numerics;
+
+namespace Territory.Utils;
 
 internal static class Helper
 {
@@ -40,11 +42,19 @@ internal static class Helper
         Nether,
         TneEnd = 4
     }
-    internal static int ToDimID(Dimension dimension) => dimension switch
+    internal static int ToDimID(this Dimension dimension) => dimension switch
     {
         Dimension.OverWorld => 0,
         Dimension.Nether => 1,
         Dimension.TneEnd => 2,
         _ => throw new InvalidValueException("Value is not exist in Dimension enum")
     };
+    internal static Dimension GetDimensionFromDimID(int dimId) => dimId switch
+    {
+        0 => Dimension.OverWorld,
+        1 => Dimension.Nether,
+        2 => Dimension.TneEnd,
+        _ => throw new InvalidValueException("Value is not exist in Dimension enum")
+    };
+    internal static Vector4 ToVec4(this Vec3 vec3, float w) => new(vec3.X, vec3.Y, vec3.Z, w);
 }

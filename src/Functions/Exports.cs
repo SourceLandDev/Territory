@@ -1,4 +1,4 @@
-﻿namespace Territory.Funcs;
+﻿namespace Territory.Functions;
 
 internal static class Exports
 {

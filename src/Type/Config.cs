@@ -6,12 +6,12 @@ internal struct Config
 {
     private (ulong, ulong) minMax;
 
-    public int MaxLandsPerPlayer { get; set; }
-    public (uint, uint, uint) Price { get; set; }
+    public int MaxLandsPerPlayer { get; init; }
+    public (uint, uint, uint) Price { get; init; }
     public (ulong, ulong) MinMax
     {
         get => minMax;
-        set
+        init
         {
             if (value.Item2 > value.Item1)
             {
@@ -20,6 +20,5 @@ internal struct Config
             minMax = value;
         }
     }
-    public Helper.Dimension AvailableDimension { get; set; }
-    public string DefaultLanguage { get; set; }
+    public Helper.Dimension AvailableDimension { get; init; }
 }
