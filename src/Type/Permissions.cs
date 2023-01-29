@@ -4,13 +4,14 @@ namespace Territory.Type;
 
 internal struct Permissions
 {
-    internal IPermission this[string i] => i.ToUpperInvariant() switch
+    internal PermissionBase this[string i]
     {
-        "BLOCK" => Block,
-        "ENTITY" => Entity,
-        "PLAYER" => Player,
-        _ => throw new InvalidValueException("Value is not exist in Permissions type")
-    };
+        get
+        {
+            System.Type @this = GetType();
+            return (PermissionBase)@this.GetProperty(i).GetValue(@this);
+        }
+    }
     internal Permission.Block Block { get; set; }
     internal Entity Entity { get; set; }
     internal Permission.Player Player { get; set; }

@@ -1,6 +1,6 @@
 ﻿namespace Territory.Type.Permission;
 
-internal struct Player : IPermission
+internal class Player : PermissionBase
 {
     internal bool UseItemOn { get; set; }
     internal bool Attack { get; set; }
@@ -15,4 +15,10 @@ internal struct Player : IPermission
     internal bool InteractBlock { get; set; }
     internal bool BedEnter { get; set; }
     internal bool ArmorStandChange { get; set; }
+    internal bool FarmLandDecay { get; set; }
+    internal bool HurtMob { get; set; }
+    internal bool Ride { get; set; }
+    internal bool StepOnPressurePlate { get; set; }
+    internal bool ProjectileSpawn { get; set; }
+    internal bool Move { get; set; }
 }

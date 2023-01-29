@@ -1,6 +1,4 @@
-﻿using Territory.Utils;
-
-namespace Territory.Type;
+﻿namespace Territory.Type;
 
 internal struct Config
 {
@@ -20,5 +18,5 @@ internal struct Config
             minMax = value;
         }
     }
-    public Helper.Dimension AvailableDimension { get; init; }
+    public (bool, bool, bool) AvailableDimension { get; init; }
 }

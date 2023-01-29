@@ -23,15 +23,15 @@ public class Main : IPluginInitializer
     {
         string path = Path.Combine("plugins", (GetType().GetCustomAttribute(typeof(PluginMainAttribute)) as PluginMainAttribute).Name);
 
-        Helper.CheckDir(path);
+        FileHelper.CheckDir(path);
         DataBase = new(Path.Combine(path, "data.db"));
-        Config = JsonSerializer.Deserialize<Config>(Helper.CheckFile(Path.Combine(path, "config.json"), JsonSerializer.Serialize(new Config())));
+        Config = JsonSerializer.Deserialize<Config>(FileHelper.CheckFile(Path.Combine(path, "config.json"), JsonSerializer.Serialize(new Config())));
 
-        DirectoryInfo langFileDir = Helper.CheckDir(Path.Combine(path, "languagePack"));
+        DirectoryInfo langFileDir = FileHelper.CheckDir(Path.Combine(path, "languagePack"));
         LangData = new();
         foreach (FileInfo file in langFileDir.GetFiles("*.json"))
         {
-            LangData[file.Name] = JsonSerializer.Deserialize<Dictionary<string, string>>(Helper.CheckFile(file.FullName, JsonSerializer.Serialize(new Dictionary<string, string>())));
+            LangData[file.Name] = JsonSerializer.Deserialize<Dictionary<string, string>>(FileHelper.CheckFile(file.FullName, JsonSerializer.Serialize(new Dictionary<string, string>())));
         }
 
         EventSystem.SetupPlayer();
@@ -40,7 +40,7 @@ public class Main : IPluginInitializer
 
         EventSystem.SetupEntity();
 
-        Functions.Command.Setup();
+        MainCommand.Setup();
 
         Exports.Setup();
     }

@@ -1,6 +1,6 @@
 ﻿namespace Territory.Type.Permission;
 
-internal interface IPermission
+internal class PermissionBase
 {
     internal bool this[string i]
     {

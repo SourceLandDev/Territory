@@ -1,8 +1,6 @@
-﻿using System.Numerics;
+﻿namespace Territory.Utils;
 
-namespace Territory.Utils;
-
-internal static class Helper
+internal static class FileHelper
 {
     /// <summary>
     /// 获取DirectoryInfo，不存在时自动创建
@@ -33,28 +31,4 @@ internal static class Helper
         }
         return File.ReadAllText(path);
     }
-    /// <summary>
-    /// 维度枚举
-    /// </summary>
-    internal enum Dimension
-    {
-        OverWorld = 1,
-        Nether,
-        TneEnd = 4
-    }
-    internal static int ToDimID(this Dimension dimension) => dimension switch
-    {
-        Dimension.OverWorld => 0,
-        Dimension.Nether => 1,
-        Dimension.TneEnd => 2,
-        _ => throw new InvalidValueException("Value is not exist in Dimension enum")
-    };
-    internal static Dimension GetDimensionFromDimID(int dimId) => dimId switch
-    {
-        0 => Dimension.OverWorld,
-        1 => Dimension.Nether,
-        2 => Dimension.TneEnd,
-        _ => throw new InvalidValueException("Value is not exist in Dimension enum")
-    };
-    internal static Vector4 ToVec4(this Vec3 vec3, float w) => new(vec3.X, vec3.Y, vec3.Z, w);
 }

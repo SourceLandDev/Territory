@@ -1,9 +1,8 @@
-﻿#nullable enable
-namespace Territory.Utils;
+﻿namespace Territory.Utils;
 
 internal static class I18n
 {
-    internal static string Translate(string langCode, string key, Dictionary<string, string>? kvs = null)
+    internal static string Translate(string langCode, string key, Dictionary<string, string> kvs = default)
     {
         string value = Main.LangData[langCode][key];
         if (kvs is null)

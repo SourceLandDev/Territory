@@ -19,113 +19,25 @@ internal static class EventSystem
         BlockInteractedEvent.Subscribe(ev => EventHelper.ProcessPlayerEvent(ev.Player, ev.BlockInstance.Position, ev.BlockInstance.DimensionId, "InteractBlock", ev.IsCancelled));
         PlayerBedEnterEvent.Subscribe(ev => EventHelper.ProcessPlayerEvent(ev.Player, ev.BlockInstance.Position, ev.BlockInstance.DimensionId, "BedEnter", ev.IsCancelled));
         ArmorStandChangeEvent.Subscribe(ev => EventHelper.ProcessPlayerEvent(ev.Player, ev.ArmorStand.Pos, ev.ArmorStand.DimensionId, "ArmorStandChange", ev.IsCancelled));
+        FarmLandDecayEvent.Subscribe(ev => !ev.Actor.IsPlayer || EventHelper.ProcessPlayerEvent(new(ev.Actor.Intptr), ev.BlockInstance.Position, ev.BlockInstance.DimensionId, "FarmLandDecay", ev.IsCancelled));
+        MobHurtEvent.Subscribe(ev => !ev.DamageSource.Entity.IsPlayer || EventHelper.ProcessPlayerEvent(new(ev.DamageSource.Entity.Intptr), ev.Mob.Pos, ev.Mob.DimensionId, "HurtMob", ev.IsCancelled));
+        EntityRideEvent.Subscribe(ev => !ev.Rider.IsPlayer || EventHelper.ProcessPlayerEvent(new(ev.Rider.Intptr), ev.Vehicle.Pos, ev.Vehicle.DimensionId, "Ride", ev.IsCancelled));
+        EntityStepOnPressurePlateEvent.Subscribe(ev => !ev.Actor.IsPlayer|| EventHelper.ProcessPlayerEvent(new(ev.Actor.Intptr), ev.BlockInstance.Position, ev.BlockInstance.DimensionId, "StepOnPressurePlate", ev.IsCancelled));
+        ProjectileSpawnEvent.Subscribe(ev => !ev.Shooter.IsPlayer || EventHelper.ProcessPlayerEvent(new(ev.Shooter.Intptr), ev.Shooter.Pos, ev.Shooter.DimensionId, "ProjectileSpawn", ev.IsCancelled));    // 需要考虑在外面射进里面的情况（应该可以通过阻止移动解决）
     }
     // TODO：事件权限检测
     internal static void SetupBlock()
     {
-        BlockChangedEvent.Subscribe(ev =>
-        {
-            return true;
-        });
-        BlockExplodedEvent.Subscribe(ev =>
-        {
-            return true;
-        });
-        FireSpreadEvent.Subscribe(ev =>
-        {
-            return true;
-        });
-        ProjectileHitBlockEvent.Subscribe(ev =>
-        {
-            return true;
-        });
-        RedStoneUpdateEvent.Subscribe(ev =>
-        {
-            return true;
-        });
-        HopperSearchItemEvent.Subscribe(ev =>
-        {
-            return true;
-        });
-        HopperPushOutEvent.Subscribe(ev =>
-        {
-            return true;
-        });
-        PistonTryPushEvent.Subscribe(ev =>
-        {
-            return true;
-        });
-        PistonPushEvent.Subscribe(ev =>
-        {
-            return true;
-        });
-        FarmLandDecayEvent.Subscribe(ev =>
-        {
-            return true;
-        });
-        LiquidSpreadEvent.Subscribe(ev =>
-        {
-            return true;
-        });
-        CmdBlockExecuteEvent.Subscribe(ev =>
-        {
-            return true;
-        });
-        BlockExplodeEvent.Subscribe(ev =>
-        {
-            return true;
-        });
+        FireSpreadEvent.Subscribe(ev => EventHelper.ProcessAnotherEvent(ev.Target, ev.DimensionId, "Block", "FireSpread", ev.IsCancelled));
+        HopperSearchItemEvent.Subscribe(ev => EventHelper.ProcessAnotherEvent(ev.isMinecart ? ev.MinecartPos.ToBlockPos() : ev.HopperBlock.Position, ev.DimensionId, "Block", "HopperSearchItem", ev.IsCancelled));
+        PistonTryPushEvent.Subscribe(ev => EventHelper.ProcessAnotherEvent(ev.TargetBlockInstance.Position, ev.TargetBlockInstance.DimensionId, "Block", "PistonTryPush", ev.IsCancelled));
+        LiquidSpreadEvent.Subscribe(ev => EventHelper.ProcessAnotherEvent(ev.Target, ev.DimensionId, "Block", "LiquidSpread", ev.IsCancelled));
+        // BlockExplodeEvent.Subscribe(ev => EventHelper.ProcessAnotherEvent(ev, ev.BlockInstance.DimensionId, "Block", "Explode", ev.IsCancelled));
     }
     internal static void SetupEntity()
     {
-        EntityTransformEvent.Subscribe(ev =>
-        {
-            return true;
-        });
-        EntityExplodeEvent.Subscribe(ev =>
-        {
-            return true;
-        });
-        MobHurtEvent.Subscribe(ev =>
-        {
-            return true;
-        });
-        MobDieEvent.Subscribe(ev =>
-        {
-            return true;
-        });
-        ProjectileHitEntityEvent.Subscribe(ev =>
-        {
-            return true;
-        });
-        WitherBossDestroyEvent.Subscribe(ev =>
-        {
-            return true;
-        });
-        EntityRideEvent.Subscribe(ev =>
-        {
-            return true;
-        });
-        EntityStepOnPressurePlateEvent.Subscribe(ev =>
-        {
-            return true;
-        });
-        ProjectileSpawnEvent.Subscribe(ev =>
-        {
-            return true;
-        });
-        ProjectileCreatedEvent.Subscribe(ev =>
-        {
-            return true;
-        });
-        MobTrySpawnEvent.Subscribe(ev =>
-        {
-            return true;
-        });
-        MobSpawnedEvent.Subscribe(ev =>
-        {
-            return true;
-        });
+        EntityExplodeEvent.Subscribe(ev => EventHelper.ProcessAnotherEvent(ev.Pos, ev.BlockSource.DimensionId, "Entity", "Explode", ev.IsCancelled));
+        WitherBossDestroyEvent.Subscribe(ev => EventHelper.ProcessAnotherEvent(ev.DestroyRange, ev.WitherBoss.DimensionId, "Entity", "WitherBossDestroy", ev.IsCancelled));
         Thook.RegisterHook<ActorMoveEventHook, ActorMoveEventDelegate>();
     }
 }

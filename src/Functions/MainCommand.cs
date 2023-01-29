@@ -3,7 +3,7 @@ using Territory.Utils;
 
 namespace Territory.Functions;
 
-internal static class Command
+internal static class MainCommand
 {
     internal static void Setup()
     {
