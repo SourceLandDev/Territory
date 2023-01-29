@@ -29,6 +29,7 @@ public class Main : IPluginInitializer
         Config = JsonSerializer.Deserialize<Config>(Helper.CheckFile(Path.Combine(path, "config.json"), JsonSerializer.Serialize(new Config())));
 
         DirectoryInfo langFileDir = Helper.CheckDir(Path.Combine(path, "lang"));
+        LangData = new();
         foreach (FileInfo file in langFileDir.GetFiles("*.json"))
         {
             LangData[file.Name] = JsonSerializer.Deserialize<LangData>(Helper.CheckFile(file.FullName, JsonSerializer.Serialize(new LangData())));

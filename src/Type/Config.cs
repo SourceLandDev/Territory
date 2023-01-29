@@ -15,7 +15,7 @@ internal struct Config
         {
             if (value.Item2 > value.Item1)
             {
-                throw new InvalidOperationException("Min value is bigger than Max value!");
+                throw new InvalidValueException("Min value is bigger than max value");
             }
             minMax = value;
         }

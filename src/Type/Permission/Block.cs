@@ -1,5 +1,5 @@
 ﻿namespace Territory.Type.Permission;
 
-internal struct Block
+internal struct Block : IPermission
 {
 }

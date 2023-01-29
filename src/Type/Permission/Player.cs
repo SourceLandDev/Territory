@@ -1,5 +1,5 @@
 ﻿namespace Territory.Type.Permission;
 
-internal struct Player
+internal struct Player : IPermission
 {
 }

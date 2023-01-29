@@ -1,5 +1,5 @@
 ﻿namespace Territory.Type.Permission;
 
-internal struct Entity
+internal struct Entity : IPermission
 {
 }

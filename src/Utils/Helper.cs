@@ -40,4 +40,11 @@ internal static class Helper
         Nether,
         TneEnd = 4
     }
+    internal static int ToDimID(Dimension dimension) => dimension switch
+    {
+        Dimension.OverWorld => 0,
+        Dimension.Nether => 1,
+        Dimension.TneEnd => 2,
+        _ => throw new InvalidValueException("Value is not exist in Dimension enum")
+    };
 }
