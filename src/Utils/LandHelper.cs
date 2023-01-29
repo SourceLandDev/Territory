@@ -14,7 +14,7 @@ internal static class LandHelper
         List<LandData> lands = new AABB(x, y, z, x, y, z).GetLands(dim);
         if (lands.Count > 1)
         {
-            throw new InvalidDataException("Too much lands! xwx");
+            throw new InvalidDataException("Data err0r! Too much lands! xwx");
         }
         if (lands.Count > 0)
         {
@@ -26,10 +26,15 @@ internal static class LandHelper
     }
     internal static List<LandData> GetLands(this AABB aabb, int dim)
     {
-        List<LandData> list = new();
         ILiteCollection<LandData> col = Main.DataBase.GetCollection<LandData>("lands");
-        IEnumerable<LandData> find = col.Find(e => e.Pos.Intersects(aabb) && e.Dimension == dim);
-        list.AddRange(find);
+        List<LandData> list = new();
+        foreach (LandData e in col.Find(e => e.Dimension == dim))
+        {
+            if (e.Pos.Intersects(aabb))
+            {
+                list.Add(e);
+            }
+        }
         return list;
     }
     internal static bool HasPermission(this Player player, LandData data, string type) => HasPermission(player.Xuid, data, type);

@@ -10,7 +10,7 @@ internal static class EventHelper
         if (isCancelled)
         {
             // 被取消了就鱼我无瓜了（
-            return true;
+            return default;
         }
         if (!pos.TryGetLandsByPos(dimId, out LandData land))
         {
@@ -34,7 +34,7 @@ internal static class EventHelper
         if (isCancelled)
         {
             // 被取消了就鱼我无瓜了（
-            return true;
+            return default;
         }
         List<LandData> lands = pos.GetLands(dimId);
         if (lands.Count <= 0)
@@ -58,7 +58,7 @@ internal static class EventHelper
         if (isCancelled)
         {
             // 被取消了就鱼我无瓜了（
-            return true;
+            return default;
         }
         if (!pos.TryGetLandsByPos(dimId, out LandData land))
         {

@@ -19,4 +19,3 @@ internal class ActorMoveEventHook : THookBase<ActorMoveEventDelegate>
         Original(@this, a2, a3);
     };
 }
-

@@ -9,14 +9,7 @@ internal struct Config
     public (ulong, ulong) MinMax
     {
         get => minMax;
-        init
-        {
-            if (value.Item2 > value.Item1)
-            {
-                throw new InvalidValueException("Min value is bigger than max value");
-            }
-            minMax = value;
-        }
+        init => minMax = value.Item1 >= value.Item2 ? value : (value.Item2, value.Item1);
     }
     public (bool, bool, bool) AvailableDimension { get; init; }
 }

@@ -38,6 +38,6 @@ internal static class EventSystem
     {
         EntityExplodeEvent.Subscribe(ev => EventHelper.ProcessAnotherEvent(ev.Pos, ev.BlockSource.DimensionId, "Entity", "Explode", ev.IsCancelled));
         WitherBossDestroyEvent.Subscribe(ev => EventHelper.ProcessAnotherEvent(ev.DestroyRange, ev.WitherBoss.DimensionId, "Entity", "WitherBossDestroy", ev.IsCancelled));
-        Thook.RegisterHook<ActorMoveEventHook, ActorMoveEventDelegate>();
+        //Thook.RegisterHook<ActorMoveEventHook, ActorMoveEventDelegate>();
     }
 }

@@ -31,7 +31,7 @@ public class Main : IPluginInitializer
         LangData = new();
         foreach (FileInfo file in langFileDir.GetFiles("*.json"))
         {
-            LangData[file.Name] = JsonSerializer.Deserialize<Dictionary<string, string>>(FileHelper.CheckFile(file.FullName, JsonSerializer.Serialize(new Dictionary<string, string>())));
+            LangData[Path.GetFileNameWithoutExtension(file.Name)] = JsonSerializer.Deserialize<Dictionary<string, string>>(FileHelper.CheckFile(file.FullName, JsonSerializer.Serialize(new Dictionary<string, string>())));
         }
 
         EventSystem.SetupPlayer();
@@ -43,5 +43,11 @@ public class Main : IPluginInitializer
         MainCommand.Setup();
 
         Exports.Setup();
+
+        ServerStoppedEvent.Subscribe(ev =>
+        {
+            DataBase.Dispose();
+            return default;
+        });
     }
 }
