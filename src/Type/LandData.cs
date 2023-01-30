@@ -2,14 +2,14 @@
 
 internal class LandData
 {
-    internal AABB Pos { get; set; }
-    internal int Dimension { get; set; }
-    internal string Owner { get; set; }
-    internal string Name { get; set; }
-    internal Dictionary<string, Permission.Player> Collaborators { get; set; }
-    internal Permissions Permissions { get; set; }
-    internal LandData[] SubLands { get; set; }
+    public AABB Pos { get; set; }
+    public int Dimension { get; set; }
+    public string Owner { get; set; }
+    public string Name { get; set; }
+    public Dictionary<string, Permission.Player> Collaborators { get; set; }
+    public Permissions Permissions { get; set; }
+    public LandData[] SubLands { get; set; }
 #nullable enable
-    internal LandData? Father { get; set; }
-    internal uint Price { get; set; }
+    public LandData? Father { get; set; }
+    public uint Price { get; set; }
 }

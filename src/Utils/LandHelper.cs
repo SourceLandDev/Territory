@@ -43,7 +43,7 @@ internal static class LandHelper
                 }
             }
         }
-        Process(col.Find(e => e.Dimension == dim));
+        Process(col.Find(x => x.Dimension == dim));
         return list;
     }
     internal static bool HasPermission(this Player player, LandData data, string type) => HasPermission(player.Xuid, data, type);

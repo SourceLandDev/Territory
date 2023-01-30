@@ -24,6 +24,7 @@ internal static class EventSystem
         EntityRideEvent.Subscribe(ev => !ev.Rider.IsPlayer || EventHelper.ProcessPlayerEvent(new(ev.Rider.Intptr), ev.Vehicle.Pos, ev.Vehicle.DimensionId, "Ride", ev.IsCancelled));
         EntityStepOnPressurePlateEvent.Subscribe(ev => !ev.Actor.IsPlayer|| EventHelper.ProcessPlayerEvent(new(ev.Actor.Intptr), ev.BlockInstance.Position, ev.BlockInstance.DimensionId, "StepOnPressurePlate", ev.IsCancelled));
         ProjectileSpawnEvent.Subscribe(ev => !ev.Shooter.IsPlayer || EventHelper.ProcessPlayerEvent(new(ev.Shooter.Intptr), ev.Shooter.Pos, ev.Shooter.DimensionId, "ProjectileSpawn", ev.IsCancelled));    // 需要考虑在外面射进里面的情况（应该可以通过阻止移动解决）
+        Thook.RegisterHook<PlayerMoveEventHook, PlayerMoveEventDelegate>();
     }
     // TODO：事件权限检测
     internal static void SetupBlock()
