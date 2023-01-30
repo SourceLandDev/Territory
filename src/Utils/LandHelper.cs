@@ -28,13 +28,22 @@ internal static class LandHelper
     {
         ILiteCollection<LandData> col = Main.DataBase.GetCollection<LandData>("lands");
         List<LandData> list = new();
-        foreach (LandData e in col.Find(e => e.Dimension == dim))
+        void Process(IEnumerable<LandData> lands)
         {
-            if (e.Pos.Intersects(aabb))
+            foreach (LandData land in lands)
             {
-                list.Add(e);
+                if (land.Pos.Intersects(aabb))
+                {
+                    if (land.SubLands.Length > 0)
+                    {
+                        Process(land.SubLands); // 递归我的超人
+                        continue;
+                    }
+                    list.Add(land);
+                }
             }
         }
+        Process(col.Find(e => e.Dimension == dim));
         return list;
     }
     internal static bool HasPermission(this Player player, LandData data, string type) => HasPermission(player.Xuid, data, type);
