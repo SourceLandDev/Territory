@@ -12,7 +12,7 @@ internal struct Permissions
             return (PermissionBase)@this.GetProperty(i).GetValue(@this);
         }
     }
-    internal Permission.Block Block { get; set; }
-    internal Entity Entity { get; set; }
-    internal Permission.Player Player { get; set; }
+    public Permission.Block Block { get; set; }
+    public Entity Entity { get; set; }
+    public Permission.Player Player { get; set; }
 }

@@ -2,7 +2,7 @@
 
 internal class Entity : PermissionBase
 {
-    internal bool Explode { get; set; }
-    internal bool WitherBossDestroy { get; set; }
-    internal bool Move { get; set; }
+    public bool Explode { get; set; }
+    public bool WitherBossDestroy { get; set; }
+    public bool Move { get; set; }
 }

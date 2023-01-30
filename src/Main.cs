@@ -42,8 +42,6 @@ public class Main : IPluginInitializer
 
         MainCommand.Setup();
 
-        Exports.Setup();
-
         ServerStoppedEvent.Subscribe(ev =>
         {
             DataBase.Dispose();

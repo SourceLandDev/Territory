@@ -1,14 +1,11 @@
-﻿using System.Numerics;
-using Territory.Type;
+﻿using Territory.Type;
 
 namespace Territory.Utils;
 
 internal static class LandHelper
 {
-    internal static bool TryGetLandsByPos(this Vector4 pos, out LandData land) => TryGetLandsByPos(pos.X, pos.Y, pos.Z, Convert.ToInt32(pos.W), out land);
     internal static bool TryGetLandsByPos(this BlockPos pos, int dim, out LandData land) => TryGetLandsByPos(pos.X, pos.Y, pos.Z, dim, out land);
     internal static bool TryGetLandsByPos(this Vec3 pos, int dim, out LandData land) => TryGetLandsByPos(pos.X, pos.Y, pos.Z, dim, out land);
-    internal static bool TryGetLandsByPos(this Vector3 pos, int dim, out LandData land) => TryGetLandsByPos(pos.X, pos.Y, pos.Z, dim, out land);
     internal static bool TryGetLandsByPos(float x, float y, float z, int dim, out LandData land)
     {
         List<LandData> lands = new AABB(x, y, z, x, y, z).GetLands(dim);

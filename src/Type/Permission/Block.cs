@@ -2,9 +2,9 @@
 
 internal class Block : PermissionBase
 {
-    internal bool FireSpread { get; set; }
-    internal bool HopperSearchItem { get; set; }
-    internal bool PistonTryPush { get; set; }
-    internal bool LiquidSpread { get; set; }
-    internal bool Explode { get; set; }
+    public bool FireSpread { get; set; }
+    public bool HopperSearchItem { get; set; }
+    public bool PistonTryPush { get; set; }
+    public bool LiquidSpread { get; set; }
+    public bool Explode { get; set; }
 }
