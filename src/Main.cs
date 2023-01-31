@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using Territory.Functions;
 using Territory.Type;
 using Territory.Utils;

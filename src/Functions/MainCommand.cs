@@ -1,4 +1,4 @@
-﻿using LiteLoader.DynamicCommand;
+using LiteLoader.DynamicCommand;
 using Territory.Utils;
 
 namespace Territory.Functions;

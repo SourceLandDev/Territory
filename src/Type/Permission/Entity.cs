@@ -1,4 +1,4 @@
-﻿namespace Territory.Type.Permission;
+namespace Territory.Type.Permission;
 
 internal class Entity : PermissionBase
 {

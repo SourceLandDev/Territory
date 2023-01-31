@@ -1,4 +1,4 @@
-﻿using Territory.Utils;
+using Territory.Utils;
 
 namespace Territory.Functions;
 
@@ -10,6 +10,10 @@ internal class ActorMoveEventHook : THookBase<ActorMoveEventDelegate>
     {
         // TODO：生物无权限时可出（不可入）
         Actor actor = @this.Dereference();
+        if (actor.PlayerOwner is not null && !EventHelper.ProcessPlayerEvent(actor.PlayerOwner, a2, actor.DimensionId, "Move"))
+        {
+            return;
+        }
         if (!EventHelper.ProcessAnotherEvent(a2, actor.DimensionId, "Entity", "Move"))
         {
             return;

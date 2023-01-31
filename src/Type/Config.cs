@@ -1,4 +1,4 @@
-﻿namespace Territory.Type;
+namespace Territory.Type;
 
 internal struct Config
 {

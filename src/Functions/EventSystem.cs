@@ -1,4 +1,4 @@
-﻿using Territory.Utils;
+using Territory.Utils;
 
 namespace Territory.Functions;
 

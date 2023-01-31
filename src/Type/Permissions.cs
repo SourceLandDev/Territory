@@ -1,4 +1,4 @@
-﻿using Territory.Type.Permission;
+using Territory.Type.Permission;
 
 namespace Territory.Type;
 

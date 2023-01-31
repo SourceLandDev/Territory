@@ -1,4 +1,4 @@
-﻿namespace Territory.Utils;
+namespace Territory.Utils;
 
 internal static class I18n
 {
