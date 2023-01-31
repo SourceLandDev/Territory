@@ -1,18 +1,20 @@
+using Territory.Type;
+
 namespace Territory.Utils;
 
 internal static class FormHelper
 {
-    internal static SimpleForm BuildMain(string langCode, Vec3 pos, int dim)
+    internal static SimpleForm BuildMain(string languageCode, Vec3 pos, int dim, string xuid, bool isOP)
     {
-        SimpleForm form = new SimpleForm(I18nHelper.Translate(langCode, "menu.main.title"), I18nHelper.Translate(langCode, "menu.main.content"))
-        .AddButton(I18nHelper.Translate(langCode, "menu.main.button.create"), I18nHelper.Translate(langCode, "menu.main.button.create.image"), ActionHelper.StartCreate);
-        if (!LandHelper.TryGetLandsByPos(pos, dim, out _))
+        SimpleForm form = new SimpleForm(Main.i18nHelper[languageCode]["menu.main.title"], Main.i18nHelper[languageCode]["menu.main.content"])
+        .AddButton(Main.i18nHelper[languageCode]["menu.main.button.create"], Main.i18nHelper[languageCode]["menu.main.button.create.image"], ActionHelper.StartCreate);
+        if (!LandHelper.TryGetLand(pos, dim, out LandData land) || !isOP && !LandHelper.HasPermission(xuid, land))
         {
             return form;
         }
-        form.AddButton(I18nHelper.Translate(langCode, "menu.main.button.manage"), I18nHelper.Translate(langCode, "menu.main.button.manage.image"), (player) => BuildManage(player.LanguageCode).SendTo(player));
+        form.AddButton(Main.i18nHelper[languageCode]["menu.main.button.manage"], Main.i18nHelper[languageCode]["menu.main.button.manage.image"], (player) => BuildManage(player.LanguageCode).SendTo(player));
         return form;
     }
 
-    internal static SimpleForm BuildManage(string langCode) => new SimpleForm();
+    internal static SimpleForm BuildManage(string languageCode) => new SimpleForm();
 }

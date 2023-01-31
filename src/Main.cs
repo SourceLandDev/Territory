@@ -16,9 +16,9 @@ public class Main : IPluginInitializer
         ["WARN"] = "You edited it, you FREE it. DO NOT BE EVAL!"   // AGPL 3.0
     };
     public System.Version Version => Assembly.GetExecutingAssembly().GetName().Version;
-    internal static Dictionary<string, Dictionary<string, string>> LangData;
     internal static LiteDatabase DataBase;
     internal static Config Config;
+    internal static I18nHelper i18nHelper;
     public void OnInitialize()
     {
         string path = Path.Combine("plugins", (GetType().GetCustomAttribute(typeof(PluginMainAttribute)) as PluginMainAttribute).Name);
@@ -28,10 +28,10 @@ public class Main : IPluginInitializer
         Config = JsonSerializer.Deserialize<Config>(FileHelper.CheckFile(Path.Combine(path, "config.json"), JsonSerializer.Serialize(new Config())));
 
         DirectoryInfo langFileDir = FileHelper.CheckDir(Path.Combine(path, "languagePack"));
-        LangData = new();
+        i18nHelper = new();
         foreach (FileInfo file in langFileDir.GetFiles("*.json"))
         {
-            LangData[Path.GetFileNameWithoutExtension(file.Name)] = JsonSerializer.Deserialize<Dictionary<string, string>>(FileHelper.CheckFile(file.FullName, JsonSerializer.Serialize(new Dictionary<string, string>())));
+            i18nHelper[Path.GetFileNameWithoutExtension(file.Name)] = new(JsonSerializer.Deserialize<Dictionary<string, string>>(FileHelper.CheckFile(file.FullName, JsonSerializer.Serialize(new Dictionary<string, string>()))));
         }
 
         EventSystem.SetupPlayer();

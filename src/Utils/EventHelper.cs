@@ -12,7 +12,7 @@ internal static class EventHelper
             // 被取消了就鱼我无瓜了（
             return default;
         }
-        if (!pos.TryGetLandsByPos(dimId, out LandData land))
+        if (!pos.TryGetLand(dimId, out LandData land))
         {
             // 没领地一律通过
             return true;
@@ -20,10 +20,10 @@ internal static class EventHelper
         if (!player.HasPermission(land, eventTypeName))
         {
             // 没权限你想干啥
-            player.SendText(I18nHelper.Translate(player.LanguageCode, "territory.event.nopermission", new Dictionary<string, string>
+            player.SendText(Main.i18nHelper[player.LanguageCode].Translate("territory.event.nopermission", new Dictionary<string, string>
             {
                 ["land_name"] = land.Name,
-                ["action_type"] = I18nHelper.Translate(player.LanguageCode, $"territory.event.player.{eventTypeName.ToLowerInvariant()}")
+                ["action_type"] = Main.i18nHelper[player.LanguageCode][$"territory.event.player.{eventTypeName.ToLowerInvariant()}"]
             }));
             return false;
         }
@@ -60,7 +60,7 @@ internal static class EventHelper
             // 被取消了就鱼我无瓜了（
             return default;
         }
-        if (!pos.TryGetLandsByPos(dimId, out LandData land))
+        if (!pos.TryGetLand(dimId, out LandData land))
         {
             // 没领地一律通过
             return true;
