@@ -1,6 +1,6 @@
 namespace Territory.Utils;
 
-internal static class I18n
+internal static class I18nHelper
 {
     /// <summary>
     /// 获取翻译

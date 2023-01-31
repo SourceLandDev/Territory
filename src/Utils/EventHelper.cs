@@ -20,10 +20,10 @@ internal static class EventHelper
         if (!player.HasPermission(land, eventTypeName))
         {
             // 没权限你想干啥
-            player.SendText(I18n.Translate(player.LanguageCode, "territory.event.nopermission", new Dictionary<string, string>
+            player.SendText(I18nHelper.Translate(player.LanguageCode, "territory.event.nopermission", new Dictionary<string, string>
             {
                 ["land_name"] = land.Name,
-                ["action_type"] = I18n.Translate(player.LanguageCode, $"territory.event.player.{eventTypeName.ToLowerInvariant()}")
+                ["action_type"] = I18nHelper.Translate(player.LanguageCode, $"territory.event.player.{eventTypeName.ToLowerInvariant()}")
             }));
             return false;
         }
