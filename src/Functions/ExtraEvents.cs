@@ -1,3 +1,4 @@
+using Territory.Type;
 using Territory.Utils;
 
 namespace Territory.Functions;
@@ -30,10 +31,45 @@ internal class PlayerMoveEventHook : THookBase<PlayerMoveEventDelegate>
     {
         // TODO：玩家无权限时在内部自动移出
         Player player = @this.Dereference();
+        if (a2.TryGetLand(player.DimensionId, out Type.LandData land) && (!player.Pos.TryGetLand(player.DimensionId, out Type.LandData land1) || !land.Equals(land1)))
+        {
+            ParticleAPI.DrawCuboid(int.MaxValue, true, true, land.Pos, land.Dimension);
+        }
         if (!EventHelper.ProcessPlayerEvent(player, a2, player.DimensionId, "Move"))
         {
             return;
         }
         Original(@this, a2);
+    };
+}
+
+internal delegate void SculkSpreadEventDelegate(/* SculkCatalystBlock */ nint @this, pointer<BlockSource> a2, BlockPos a3, pointer<Block> a4, /* Random */nint a5);
+[HookSymbol("?bloom@SculkCatalystBlock@@SAXAEAVBlockSource@@AEBVBlockPos@@AEBVBlock@@AEAVRandom@@@Z")]
+internal class SculkSpreadEventHook : THookBase<SculkSpreadEventDelegate>
+{
+    public override SculkSpreadEventDelegate Hook => (@this, a2, a3, a4, a5) =>
+    {
+        BlockSource blockSource = a2.Dereference();
+        BlockInstance blockInstance = blockSource.GetBlockInstance(a3); // ？
+        if (!LandHelper.IsInOneLand(blockInstance.Position.ToVec3(), a3.ToVec3(), blockSource.DimensionId, out LandData land) && !EventHelper.ProcessAnotherEvent(a3.ToVec3(), blockSource.DimensionId, "Block", "Spread"))
+        {
+            return;
+        }
+        Original(@this, a2, a3, a4, a5);
+    };
+}
+
+internal delegate void MossSpreadEventDelegate(/* MossBlock */ nint @this, pointer<BlockSource> a2, BlockPos a3, pointer<Actor> a4, int a5);
+[HookSymbol("?onFertilized@MossBlock@@UEBA_NAEAVBlockSource@@AEBVBlockPos@@PEAVActor@@W4FertilizerType@@@Z")]
+internal class MossSpreadEventHook : THookBase<MossSpreadEventDelegate>
+{
+    public override MossSpreadEventDelegate Hook => (@this, a2, a3, a4, a5) =>
+    {
+        BlockSource blockSource = a2.Dereference();
+        if (!EventHelper.ProcessAnotherEvent(a3.ToVec3(), blockSource.DimensionId, "Block", "Spread"))
+        {
+            return;
+        }
+        Original(@this, a2, a3, a4, a5);
     };
 }

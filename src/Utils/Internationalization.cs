@@ -3,9 +3,11 @@ namespace Territory.Utils;
 internal class Internationalization
 {
     private readonly Dictionary<string, string> _languageData;
-    internal Internationalization(Dictionary<string, string> langData)
+    private readonly string _name;
+    internal Internationalization(Dictionary<string, string> langData, string name = "")
     {
         _languageData = langData;
+        _name = name;
     }
     /// <summary>
     /// 获取翻译
@@ -15,7 +17,10 @@ internal class Internationalization
     /// <returns>翻译完成的信息</returns>
     internal string Translate(string key, Dictionary<string, string> kvs = default)
     {
-        string value = _languageData[key];
+        if (!_languageData.TryGetValue(key, out string value))
+        {
+            throw new KeyNotFoundException($"{key} not find{(string.IsNullOrWhiteSpace(_name) ? string.Empty : $" in ${_name}")}, please check your language file");
+        }
         if (kvs is null)
         {
             return value;
@@ -26,8 +31,5 @@ internal class Internationalization
         }
         return value;
     }
-    internal string this[string languageCode]
-    {
-        get => Translate(languageCode);
-    }
+    internal string this[string languageCode] => Translate(languageCode);
 }

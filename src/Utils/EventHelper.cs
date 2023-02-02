@@ -4,7 +4,6 @@ namespace Territory.Utils;
 
 internal static class EventHelper
 {
-    internal static bool ProcessPlayerEvent(Player player, BlockPos pos, int dimId, string eventTypeName, bool isCancelled = false) => ProcessPlayerEvent(player, pos.ToVec3(), dimId, eventTypeName, isCancelled);
     internal static bool ProcessPlayerEvent(Player player, Vec3 pos, int dimId, string eventTypeName, bool isCancelled = false)
     {
         if (isCancelled)
@@ -17,7 +16,7 @@ internal static class EventHelper
             // 没领地一律通过
             return true;
         }
-        if (!player.HasPermission(land, eventTypeName))
+        if (!land.HasPermission(player.Xuid, eventTypeName))
         {
             // 没权限你想干啥
             player.SendText(Main.i18nHelper[player.LanguageCode].Translate("territory.event.nopermission", new Dictionary<string, string>
@@ -52,18 +51,21 @@ internal static class EventHelper
         }
         return true;
     }
-    internal static bool ProcessAnotherEvent(Vec3 pos, int dimId, string typeNamespace, string eventTypeName, bool isCancelled = false) => ProcessAnotherEvent(pos.ToBlockPos(), dimId, typeNamespace, eventTypeName, isCancelled);
-    internal static bool ProcessAnotherEvent(BlockPos pos, int dimId, string typeNamespace, string eventTypeName, bool isCancelled = false)
+    internal static bool ProcessAnotherEvent(Vec3 pos, int dimId, string typeNamespace, string eventTypeName, bool isCancelled = false)
+    {
+        if (!pos.TryGetLand(dimId, out LandData land))
+        {
+            // 没领地一律通过
+            return true;
+        }
+        return ProcessAnotherEvent(land, typeNamespace, eventTypeName, isCancelled);
+    }
+    internal static bool ProcessAnotherEvent(LandData land, string typeNamespace, string eventTypeName, bool isCancelled = false)
     {
         if (isCancelled)
         {
             // 被取消了就鱼我无瓜了（
             return default;
-        }
-        if (!pos.TryGetLand(dimId, out LandData land))
-        {
-            // 没领地一律通过
-            return true;
         }
         if (!land.Permissions[typeNamespace][eventTypeName])
         {

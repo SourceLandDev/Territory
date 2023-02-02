@@ -16,7 +16,7 @@ internal static class MainCommand
                 output.Error("commands.generic.noTargetMatch");
                 return;
             }
-            FormHelper.BuildMain(origin.Player.LanguageCode, origin.Player.Pos, origin.Player.DimensionId, origin.Player.Xuid, origin.Player.IsOP).SendTo(origin.Player);
+            FormHelper.BuildMain(origin.Player).SendTo(origin.Player);
         });
         DynamicCommand.Setup(instance);
     }
