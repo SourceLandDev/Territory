@@ -7,5 +7,5 @@ internal class Block : PermissionBase
     public bool PistonTryPush { get; set; }
     public bool LiquidSpread { get; set; }
     public bool Explode { get; set; }
-    public bool Spread { get; set;}
+    public bool Spread { get; set; }
 }

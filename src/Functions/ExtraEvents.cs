@@ -1,4 +1,3 @@
-using Territory.Type;
 using Territory.Utils;
 
 namespace Territory.Functions;
@@ -43,23 +42,21 @@ internal class PlayerMoveEventHook : THookBase<PlayerMoveEventDelegate>
     };
 }
 
-internal delegate void SculkSpreadEventDelegate(/* SculkCatalystBlock */ nint @this, pointer<BlockSource> a2, BlockPos a3, pointer<Block> a4, /* Random */nint a5);
-[HookSymbol("?bloom@SculkCatalystBlock@@SAXAEAVBlockSource@@AEBVBlockPos@@AEBVBlock@@AEAVRandom@@@Z")]
+internal delegate void SculkSpreadEventDelegate(/* SculkChargeCursor */ nint @this, /* IBlockWorldGenAPI */ nint a2, pointer<BlockSource> a3, BlockPos a4, /* Random */ nint a5, /* SculkSpreader */ nint a6, bool a7);
+[HookSymbol("?update@SculkChargeCursor@@QEAAXAEAVIBlockWorldGenAPI@@PEAVBlockSource@@AEBVBlockPos@@AEAVRandom@@AEAVSculkSpreader@@_N@Z")]
 internal class SculkSpreadEventHook : THookBase<SculkSpreadEventDelegate>
 {
-    public override SculkSpreadEventDelegate Hook => (@this, a2, a3, a4, a5) =>
+    public override SculkSpreadEventDelegate Hook => (@this, a2, a3, a4, a5, a6, a7) =>
     {
-        BlockSource blockSource = a2.Dereference();
-        BlockInstance blockInstance = blockSource.GetBlockInstance(a3); // ？
-        if (!LandHelper.IsInOneLand(blockInstance.Position.ToVec3(), a3.ToVec3(), blockSource.DimensionId, out LandData land) && !EventHelper.ProcessAnotherEvent(a3.ToVec3(), blockSource.DimensionId, "Block", "Spread"))
+        if (!EventHelper.ProcessAnotherEvent(a4.ToVec3(), a3.Dereference().DimensionId, "Block", "Spread"))
         {
             return;
         }
-        Original(@this, a2, a3, a4, a5);
+        Original(@this, a2, a3, a4, a5, a6, a7);
     };
 }
 
-internal delegate void MossSpreadEventDelegate(/* MossBlock */ nint @this, pointer<BlockSource> a2, BlockPos a3, pointer<Actor> a4, int a5);
+internal delegate void MossSpreadEventDelegate(/* MossBlock */ nint @this, pointer<BlockSource> a2, BlockPos a3, pointer<Actor> a4, /* FertilizerType */int a5);
 [HookSymbol("?onFertilized@MossBlock@@UEBA_NAEAVBlockSource@@AEBVBlockPos@@PEAVActor@@W4FertilizerType@@@Z")]
 internal class MossSpreadEventHook : THookBase<MossSpreadEventDelegate>
 {
