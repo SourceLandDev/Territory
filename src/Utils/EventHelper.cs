@@ -19,10 +19,10 @@ internal static class EventHelper
         if (!land.HasPermission(player.Xuid, eventTypeName))
         {
             // 没权限你想干啥
-            player.SendText(Main.i18nHelper[player.LanguageCode].Translate("territory.event.nopermission", new Dictionary<string, string>
+            player.SendText(Main.i18nHelper[player.LanguageCode].Translate("territory.event.nopermission", new[]
             {
-                ["land_name"] = land.Name,
-                ["action_type"] = Main.i18nHelper[player.LanguageCode][$"territory.event.player.{eventTypeName.ToLowerInvariant()}"]
+                land.Name,
+                Main.i18nHelper[player.LanguageCode][$"territory.event.player.{eventTypeName.ToLowerInvariant()}"]
             }));
             return false;
         }

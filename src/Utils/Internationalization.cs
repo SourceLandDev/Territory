@@ -13,23 +13,19 @@ internal class Internationalization
     /// 获取翻译
     /// </summary>
     /// <param name="key">键</param>
-    /// <param name="kvs">参数</param>
+    /// <param name="values">参数</param>
     /// <returns>翻译完成的信息</returns>
-    internal string Translate(string key, Dictionary<string, string> kvs = default)
+    internal string Translate(string key, string[] values = default)
     {
         if (!_languageData.TryGetValue(key, out string value))
         {
             throw new KeyNotFoundException($"{key} not find{(string.IsNullOrWhiteSpace(_name) ? string.Empty : $" in ${_name}")}, please check your language file");
         }
-        if (kvs is null)
+        if (values is null)
         {
             return value;
         }
-        foreach ((string k, string v) in kvs)
-        {
-            value = value.Replace($"%{k}%", v);
-        }
-        return value;
+        return string.Format(value, values);
     }
     internal string this[string languageCode] => Translate(languageCode);
 }
