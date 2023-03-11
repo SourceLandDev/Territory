@@ -1,6 +1,6 @@
 namespace Territory.Type;
 
-internal struct Config
+internal record struct Config
 {
     private (ulong, ulong) minMax;
 

@@ -4,9 +4,10 @@ using Territory.Type;
 using Territory.Utils;
 
 namespace Territory;
-[PluginMain("Territory")]
+[PluginMain(pluginName)]
 public class Main : IPluginInitializer
 {
+    internal const string pluginName = "Territory";
     public string Introduction => "A high-performance(maybe) territory management system powered by .NET";
     public Dictionary<string, string> MetaData => new()
     {
@@ -21,7 +22,7 @@ public class Main : IPluginInitializer
     internal static I18nHelper i18nHelper;
     public void OnInitialize()
     {
-        string path = Path.Combine("plugins", (GetType().GetCustomAttribute(typeof(PluginMainAttribute)) as PluginMainAttribute).Name);
+        string path = Path.Combine("plugins", pluginName);
 
         FileHelper.CheckDir(path);
         DataBase = new(Path.Combine(path, "data.db"));
