@@ -39,7 +39,7 @@ internal static class LandHelper
         Process(col.Find(x => x.Dimension == dim));
         return list;
     }
-    internal static bool HasPermission(this LandData data, string xuid, string type = default) => data.Owner == xuid || (!string.IsNullOrWhiteSpace(type) && (data.Collaborators.TryGetValue(xuid, out Type.Permission.Player permissions) ? permissions[type] : data.Permissions.Player[type]));
+    internal static bool HasPermission(this LandData data, string xuid, string type = default) => data.Owner == xuid || !string.IsNullOrWhiteSpace(type) && (data.Collaborators.TryGetValue(xuid, out Type.Permission.Player permissions) ? permissions[type] : data.Permissions.Player[type]);
     internal static bool IsInOneLand(Vec3 vec1, Vec3 vec2, int dim, [NotNullWhen(true)] out LandData land)
     {
         ILiteCollection<LandData> col = Main.DataBase.GetCollection<LandData>("lands");

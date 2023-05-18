@@ -2,7 +2,7 @@ using Territory.Type.Permission;
 
 namespace Territory.Type;
 
-internal struct Permissions
+internal class Permissions
 {
     internal PermissionBase this[string i]
     {
