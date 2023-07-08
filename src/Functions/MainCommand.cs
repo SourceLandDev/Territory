@@ -19,5 +19,6 @@ internal static class MainCommand
             FormHelper.BuildMain(origin.Player).SendTo(origin.Player);
         });
         DynamicCommand.Setup(instance);
+        ActionHelper.CreationInit();
     }
 }

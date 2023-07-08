@@ -1,18 +1,15 @@
 namespace Territory.Utils;
 
-internal record ConfigHelper
+internal record ConfigHelper(int MaxLandsPerPlayer, (uint, uint, uint) Price, (bool, bool, bool) AvailableDimension)
 {
     private (ulong, ulong) minMax;
 
-    internal int MaxLandsPerPlayer { get; private set; }
-    internal (uint, uint, uint) Price { get; private set; }
-    internal (ulong, ulong) MinMax
+    public (ulong, ulong) MinMax
     {
         get => minMax;
-        private set => minMax = value.Item1 >= value.Item2 ? value : (value.Item2, value.Item1);
+        set => minMax = value.Item1 >= value.Item2 ? value : (value.Item2, value.Item1);
     }
-    internal (bool, bool, bool) AvailableDimension { get; private set; }
-    internal ConfigHelper(string path)
+    internal ConfigHelper(string path) : this(default, default, default)
     {
         string configStr = FileHelper.CheckFile(path, JsonSerializer.Serialize(this));
         ConfigHelper config = JsonSerializer.Deserialize<ConfigHelper>(configStr);

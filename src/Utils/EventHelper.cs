@@ -35,15 +35,15 @@ internal static class EventHelper
             // 被取消了就鱼我无瓜了（
             return default;
         }
-        List<LandData> lands = pos.GetLands(dimId);
-        if (lands.Count <= 0)
+        LandData[] lands = pos.GetLands(dimId);
+        if (lands.Length <= 0)
         {
             // 没领地一律通过
             return true;
         }
         foreach (LandData land in lands)
         {
-            if (!land.Permissions[typeNamespace][eventTypeName])
+            if (!ProcessAnotherEvent(land, typeNamespace, eventTypeName))
             {
                 // 想啊，很想啊（指拦截
                 return false;

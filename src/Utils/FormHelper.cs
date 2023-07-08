@@ -21,8 +21,7 @@ internal static class FormHelper
         {
             return new(Main.i18nHelper[player.LanguageCode]["menu.manage.title"], Main.i18nHelper[player.LanguageCode]["menu.manage.content.noperm"]);
         }
-        SimpleForm form = new SimpleForm(Main.i18nHelper[player.LanguageCode]["menu.manage.title"], Main.i18nHelper[player.LanguageCode]["menu.manage.content"])
-                              .AddButton("");
+        SimpleForm form = new SimpleForm(Main.i18nHelper[player.LanguageCode]["menu.manage.title"], Main.i18nHelper[player.LanguageCode]["menu.manage.content"]);
         return form;
     }
 }

@@ -8,7 +8,8 @@ internal class ActorMoveEventHook : THookBase<ActorMoveEventDelegate>
 {
     public override ActorMoveEventDelegate Hook => (@this, a2) =>
     {
-        // TODO：生物无权限时可出（不可入）
+        // TODO：生物无权限时不可入
+        // TODO：弹射物无权限时伪击中
         Actor actor = @this.Dereference();
         if (actor.PlayerOwner is not null && !EventHelper.ProcessPlayerEvent(actor.PlayerOwner, a2, actor.DimensionId, "Move"))
         {
@@ -32,7 +33,7 @@ internal class PlayerMoveEventHook : THookBase<PlayerMoveEventDelegate>
         Player player = @this.Dereference();
         if (a2.TryGetLand(player.DimensionId, out Type.LandData land) && (!player.Pos.TryGetLand(player.DimensionId, out Type.LandData land1) || !land.Equals(land1)))
         {
-            ParticleAPI.DrawCuboid(int.MaxValue, true, true, land.Pos, land.Dimension);
+            ParticleAPI.DrawCuboid(int.MaxValue, true, true, land.Bounding, land.Dimension);
         }
         if (!EventHelper.ProcessPlayerEvent(player, a2, player.DimensionId, "Move"))
         {
@@ -48,7 +49,7 @@ internal class SculkSpreadEventHook : THookBase<SculkSpreadEventDelegate>
 {
     public override SculkSpreadEventDelegate Hook => (@this, a2, a3, a4, a5, a6, a7) =>
     {
-        if (!EventHelper.ProcessAnotherEvent(a4.ToVec3(), a3.Dereference().DimensionId, "Block", "Spread"))
+        if (!EventHelper.ProcessAnotherEvent(a4, a3.Dereference().DimensionId, "Block", "Spread"))
         {
             return;
         }
@@ -63,7 +64,7 @@ internal class MossSpreadEventHook : THookBase<MossSpreadEventDelegate>
     public override MossSpreadEventDelegate Hook => (@this, a2, a3, a4, a5) =>
     {
         BlockSource blockSource = a2.Dereference();
-        if (!EventHelper.ProcessAnotherEvent(a3.ToVec3(), blockSource.DimensionId, "Block", "Spread"))
+        if (!EventHelper.ProcessAnotherEvent(a3, blockSource.DimensionId, "Block", "Spread"))
         {
             return;
         }

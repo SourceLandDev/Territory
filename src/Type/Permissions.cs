@@ -12,7 +12,7 @@ internal class Permissions
             return (PermissionBase)@this.GetProperty(i).GetValue(@this);
         }
     }
-    public Permission.Block Block { get; set; }
-    public Entity Entity { get; set; }
-    public Permission.Player Player { get; set; }
+    public Permission.Block Block { get; set; } = new();
+    public Entity Entity { get; set; } = new();
+    public Permission.Player Player { get; set; } = new();
 }

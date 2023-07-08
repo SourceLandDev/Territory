@@ -1,4 +1,3 @@
-using System.Reflection;
 using Territory.Functions;
 using Territory.Utils;
 
@@ -11,11 +10,10 @@ public class Main : IPluginInitializer
     public Dictionary<string, string> MetaData => new()
     {
         ["Link to the repository"] = "https://github.com/SourceLandDev/Territory",
-        ["Author"] = "Xingmeng(@StarsDream00), Yuanyu Developers",
+        ["Author"] = "Hosiyume, SourceLand Developers",
         ["License"] = "AGPL 3.0",
         ["WARN"] = "You edited it, you FREE it. DO NOT BE EVAL!"   // AGPL 3.0
     };
-    public System.Version Version => Assembly.GetExecutingAssembly().GetName().Version;
     internal static LiteDatabase DataBase;
     internal static ConfigHelper Config;
     internal static I18nHelper i18nHelper;

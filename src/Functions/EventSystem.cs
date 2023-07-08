@@ -6,48 +6,48 @@ internal static class EventSystem
 {
     internal static void SetupPlayer()
     {
-        PlayerUseItemOnEvent.Subscribe(ev => EventHelper.ProcessPlayerEvent(ev.Player, ev.ClickPos, ev.BlockInstance.DimensionId, "UseItemOn", ev.IsCancelled));
-        PlayerAttackEvent.Subscribe(ev => EventHelper.ProcessPlayerEvent(ev.Player, ev.Target.Pos, ev.Target.DimensionId, "Attack", ev.IsCancelled));
-        PlayerAttackBlockEvent.Subscribe(ev => EventHelper.ProcessPlayerEvent(ev.Player, ev.BlockInstance.Position.ToVec3(), ev.BlockInstance.DimensionId, "AttackBlock", ev.IsCancelled));
-        PlayerPickupItemEvent.Subscribe(ev => EventHelper.ProcessPlayerEvent(ev.Player, ev.ItemEntity.Pos, ev.ItemEntity.DimensionId, "PickupItem", ev.IsCancelled));
-        PlayerDropItemEvent.Subscribe(ev => EventHelper.ProcessPlayerEvent(ev.Player, ev.Player.Pos, ev.Player.DimensionId, "DropItem", ev.IsCancelled));
-        PlayerPlaceBlockEvent.Subscribe(ev => EventHelper.ProcessPlayerEvent(ev.Player, ev.BlockInstance.Position.ToVec3(), ev.BlockInstance.DimensionId, "PlaceBlock", ev.IsCancelled));
-        PlayerDestroyBlockEvent.Subscribe(ev => EventHelper.ProcessPlayerEvent(ev.Player, ev.BlockInstance.Position.ToVec3(), ev.BlockInstance.DimensionId, "DestroyBlock", ev.IsCancelled));
-        PlayerOpenContainerEvent.Subscribe(ev => EventHelper.ProcessPlayerEvent(ev.Player, ev.BlockInstance.Position.ToVec3(), ev.BlockInstance.DimensionId, "OpenContainer", ev.IsCancelled));
-        PlayerUseRespawnAnchorEvent.Subscribe(ev => EventHelper.ProcessPlayerEvent(ev.Player, ev.BlockInstance.Position.ToVec3(), ev.BlockInstance.DimensionId, "UseRespawnAnchor", ev.IsCancelled));
-        PlayerUseFrameBlockEvent.Subscribe(ev => EventHelper.ProcessPlayerEvent(ev.Player, ev.BlockInstance.Position.ToVec3(), ev.BlockInstance.DimensionId, "UseFrameBlock", ev.IsCancelled));
-        BlockInteractedEvent.Subscribe(ev => EventHelper.ProcessPlayerEvent(ev.Player, ev.BlockInstance.Position.ToVec3(), ev.BlockInstance.DimensionId, "InteractBlock", ev.IsCancelled));
-        PlayerBedEnterEvent.Subscribe(ev => EventHelper.ProcessPlayerEvent(ev.Player, ev.BlockInstance.Position.ToVec3(), ev.BlockInstance.DimensionId, "BedEnter", ev.IsCancelled));
-        ArmorStandChangeEvent.Subscribe(ev => EventHelper.ProcessPlayerEvent(ev.Player, ev.ArmorStand.Pos, ev.ArmorStand.DimensionId, "ArmorStandChange", ev.IsCancelled));
-        FarmLandDecayEvent.Subscribe(ev => !ev.Actor.IsPlayer || EventHelper.ProcessPlayerEvent(new(ev.Actor.Intptr), ev.BlockInstance.Position.ToVec3(), ev.BlockInstance.DimensionId, "FarmLandDecay", ev.IsCancelled));
-        MobHurtEvent.Subscribe(ev => !ev.DamageSource.Entity.IsPlayer || EventHelper.ProcessPlayerEvent(new(ev.DamageSource.Entity.Intptr), ev.Mob.Pos, ev.Mob.DimensionId, "HurtMob", ev.IsCancelled));
-        EntityRideEvent.Subscribe(ev => !ev.Rider.IsPlayer || EventHelper.ProcessPlayerEvent(new(ev.Rider.Intptr), ev.Vehicle.Pos, ev.Vehicle.DimensionId, "Ride", ev.IsCancelled));
-        EntityStepOnPressurePlateEvent.Subscribe(ev => !ev.Actor.IsPlayer || EventHelper.ProcessPlayerEvent(new(ev.Actor.Intptr), ev.BlockInstance.Position.ToVec3(), ev.BlockInstance.DimensionId, "StepOnPressurePlate", ev.IsCancelled));
-        ProjectileSpawnEvent.Subscribe(ev => !ev.Shooter.IsPlayer || EventHelper.ProcessPlayerEvent(new(ev.Shooter.Intptr), ev.Shooter.Pos, ev.Shooter.DimensionId, "ProjectileSpawn", ev.IsCancelled));
+        PlayerUseItemOnEvent.Event += e => EventHelper.ProcessPlayerEvent(e.Player, e.ClickPos, e.BlockInstance.DimensionId, "UseItemOn", e.IsCancelled);
+        PlayerAttackEvent.Event += e => EventHelper.ProcessPlayerEvent(e.Player, e.Target.Pos, e.Target.DimensionId, "Attack", e.IsCancelled);
+        PlayerAttackBlockEvent.Event += e => EventHelper.ProcessPlayerEvent(e.Player, e.BlockInstance.Position, e.BlockInstance.DimensionId, "AttackBlock", e.IsCancelled);
+        PlayerPickupItemEvent.Event += e => EventHelper.ProcessPlayerEvent(e.Player, e.ItemEntity.Pos, e.ItemEntity.DimensionId, "PickupItem", e.IsCancelled);
+        PlayerDropItemEvent.Event += e => EventHelper.ProcessPlayerEvent(e.Player, e.Player.Pos, e.Player.DimensionId, "DropItem", e.IsCancelled);
+        PlayerPlaceBlockEvent.Event += e => EventHelper.ProcessPlayerEvent(e.Player, e.BlockInstance.Position, e.BlockInstance.DimensionId, "PlaceBlock", e.IsCancelled);
+        PlayerDestroyBlockEvent.Event += e => EventHelper.ProcessPlayerEvent(e.Player, e.BlockInstance.Position, e.BlockInstance.DimensionId, "DestroyBlock", e.IsCancelled);
+        PlayerOpenContainerEvent.Event += e => EventHelper.ProcessPlayerEvent(e.Player, e.BlockInstance.Position, e.BlockInstance.DimensionId, "OpenContainer", e.IsCancelled);
+        PlayerUseRespawnAnchorEvent.Event += e => EventHelper.ProcessPlayerEvent(e.Player, e.BlockInstance.Position, e.BlockInstance.DimensionId, "UseRespawnAnchor", e.IsCancelled);
+        PlayerUseFrameBlockEvent.Event += e => EventHelper.ProcessPlayerEvent(e.Player, e.BlockInstance.Position, e.BlockInstance.DimensionId, "UseFrameBlock", e.IsCancelled);
+        BlockInteractedEvent.Event += e => EventHelper.ProcessPlayerEvent(e.Player, e.BlockInstance.Position, e.BlockInstance.DimensionId, "InteractBlock", e.IsCancelled);
+        PlayerBedEnterEvent.Event += e => EventHelper.ProcessPlayerEvent(e.Player, e.BlockInstance.Position, e.BlockInstance.DimensionId, "BedEnter", e.IsCancelled);
+        ArmorStandChangeEvent.Event += e => EventHelper.ProcessPlayerEvent(e.Player, e.ArmorStand.Pos, e.ArmorStand.DimensionId, "ArmorStandChange", e.IsCancelled);
+        FarmLandDecayEvent.Event += e => !e.Actor.IsPlayer || EventHelper.ProcessPlayerEvent(new(e.Actor.Intptr), e.BlockInstance.Position, e.BlockInstance.DimensionId, "FarmLandDecay", e.IsCancelled);
+        MobHurtEvent.Event += e => !e.DamageSource.Entity.IsPlayer || EventHelper.ProcessPlayerEvent(new(e.DamageSource.Entity.Intptr), e.Mob.Pos, e.Mob.DimensionId, "HurtMob", e.IsCancelled);
+        EntityRideEvent.Event += e => !e.Rider.IsPlayer || EventHelper.ProcessPlayerEvent(new(e.Rider.Intptr), e.Vehicle.Pos, e.Vehicle.DimensionId, "Ride", e.IsCancelled);
+        EntityStepOnPressurePlateEvent.Event += e => !e.Actor.IsPlayer || EventHelper.ProcessPlayerEvent(new(e.Actor.Intptr), e.BlockInstance.Position, e.BlockInstance.DimensionId, "StepOnPressurePlate", e.IsCancelled);
+        ProjectileSpawnEvent.Event += e => !e.Shooter.IsPlayer || EventHelper.ProcessPlayerEvent(new(e.Shooter.Intptr), e.Shooter.Pos, e.Shooter.DimensionId, "ProjectileSpawn", e.IsCancelled);
         Thook.RegisterHook<PlayerMoveEventHook, PlayerMoveEventDelegate>();
     }
     internal static void SetupBlock()
     {
-        FireSpreadEvent.Subscribe(ev => EventHelper.ProcessAnotherEvent(ev.Target.ToVec3(), ev.DimensionId, "Block", "FireSpread", ev.IsCancelled));
-        HopperSearchItemEvent.Subscribe(ev => EventHelper.ProcessAnotherEvent(ev.isMinecart ? ev.MinecartPos : ev.HopperBlock.Position.ToVec3(), ev.DimensionId, "Block", "HopperSearchItem", ev.IsCancelled));
-        PistonTryPushEvent.Subscribe(ev => EventHelper.ProcessAnotherEvent(ev.TargetBlockInstance.Position.ToVec3(), ev.TargetBlockInstance.DimensionId, "Block", "PistonTryPush", ev.IsCancelled));
-        LiquidSpreadEvent.Subscribe(ev => EventHelper.ProcessAnotherEvent(ev.Target.ToVec3(), ev.DimensionId, "Block", "LiquidSpread", ev.IsCancelled));
-        BlockExplodeEvent.Subscribe_Ref(ev =>
+        FireSpreadEvent.Event += e => EventHelper.ProcessAnotherEvent(e.Target, e.DimensionId, "Block", "FireSpread", e.IsCancelled);
+        HopperSearchItemEvent.Event += e => EventHelper.ProcessAnotherEvent(e.Pos, e.DimensionId, "Block", "HopperSearchItem", e.IsCancelled);
+        PistonTryPushEvent.Event += e => EventHelper.ProcessAnotherEvent(e.TargetBlockInstance.Position, e.TargetBlockInstance.DimensionId, "Block", "PistonTryPush", e.IsCancelled);
+        LiquidSpreadEvent.Event += e => EventHelper.ProcessAnotherEvent(e.Target, e.DimensionId, "Block", "LiquidSpread", e.IsCancelled);
+        BlockExplodeEvent.Event += e =>
         {
-            if (!ev.Breaking)
+            if (!e.Breaking)
             {
                 return true;
             }
-            ev.Breaking = EventHelper.ProcessAnotherEvent(new AABB(ev.BlockInstance.Position.ToVec3(), ev.Radius), ev.BlockInstance.DimensionId, "Block", "Explode", ev.IsCancelled);
+            e.Breaking = EventHelper.ProcessAnotherEvent(new AABB(e.BlockInstance.Position, e.Radius), e.BlockInstance.DimensionId, "Block", "Explode", e.IsCancelled);
             return true;
-        });
+        };
         Thook.RegisterHook<SculkSpreadEventHook, SculkSpreadEventDelegate>();
         Thook.RegisterHook<MossSpreadEventHook, MossSpreadEventDelegate>();
     }
     internal static void SetupEntity()
     {
-        EntityExplodeEvent.Subscribe(ev => EventHelper.ProcessAnotherEvent(ev.Pos, ev.BlockSource.DimensionId, "Entity", "Explode", ev.IsCancelled));
-        WitherBossDestroyEvent.Subscribe(ev => EventHelper.ProcessAnotherEvent(ev.DestroyRange, ev.WitherBoss.DimensionId, "Entity", "WitherBossDestroy", ev.IsCancelled));
+        EntityExplodeEvent.Event += e => EventHelper.ProcessAnotherEvent(e.Pos, e.BlockSource.DimensionId, "Entity", "Explode", e.IsCancelled);
+        WitherBossDestroyEvent.Event += e => EventHelper.ProcessAnotherEvent(e.DestroyRange, e.WitherBoss.DimensionId, "Entity", "WitherBossDestroy", e.IsCancelled);
         Thook.RegisterHook<ActorMoveEventHook, ActorMoveEventDelegate>();
     }
 }
